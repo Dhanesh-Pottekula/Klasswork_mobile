@@ -1,16 +1,15 @@
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
+import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  Switch,
+    SafeAreaView,
+    ScrollView,
+    Switch,
+    Text,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useColorScheme } from '@/hooks/useColorScheme';
-import { Colors } from '@/constants/Colors';
 
 export default function SettingsScreen() {
   const [notifications, setNotifications] = useState(true);
@@ -76,10 +75,10 @@ export default function SettingsScreen() {
 
   const renderSettingItem = (item: any) => {
     return (
-      <View key={item.label} style={styles.settingItem}>
-        <View style={styles.settingInfo}>
+      <View key={item.label} className="flex-row items-center justify-between">
+        <View className="flex-row items-center">
           <Ionicons name={item.icon as any} size={20} color={colors.tint} />
-          <Text style={[styles.settingText, { color: colors.text }]}>{item.label}</Text>
+          <Text style={{ fontSize: 16, marginLeft: 12, color: colors.text }}>{item.label}</Text>
         </View>
         
         {item.type === 'switch' && (
@@ -92,7 +91,7 @@ export default function SettingsScreen() {
         )}
         
         {item.type === 'info' && (
-          <Text style={[styles.infoText, { color: colors.icon }]}>{item.value}</Text>
+          <Text style={{ fontSize: 14, color: colors.icon }}>{item.value}</Text>
         )}
         
         {item.type === 'button' && (
@@ -103,24 +102,24 @@ export default function SettingsScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.header}>
-          <Text style={[styles.title, { color: colors.text }]}>Settings</Text>
-          <Text style={[styles.subtitle, { color: colors.icon }]}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
+      <ScrollView className="flex-1 p-5">
+        <View className="mb-8">
+          <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 8, color: colors.text }}>Settings</Text>
+          <Text style={{ fontSize: 16, color: colors.icon }}>
             Customize your app experience
           </Text>
         </View>
 
         {settingsSections.map((section, sectionIndex) => (
-          <View key={sectionIndex} style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: colors.text }]}>{section.title}</Text>
-            <View style={[styles.sectionCard, { backgroundColor: colors.background, borderColor: colors.icon }]}>
+          <View key={sectionIndex} className="mb-6">
+            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: colors.text }}>{section.title}</Text>
+            <View style={{ borderRadius: 12, borderWidth: 1, overflow: 'hidden', backgroundColor: colors.background, borderColor: colors.icon }}>
               {section.items.map((item, itemIndex) => (
                 <View key={itemIndex}>
                   <TouchableOpacity
                     style={[
-                      styles.settingItem,
+                      { padding: 15 },
                       itemIndex < section.items.length - 1 && { borderBottomColor: colors.icon, borderBottomWidth: 1 }
                     ]}
                     onPress={item.type === 'button' ? () => {} : undefined}>
@@ -132,118 +131,27 @@ export default function SettingsScreen() {
           </View>
         ))}
 
-        <View style={styles.section}>
-          <View style={[styles.storageCard, { backgroundColor: colors.background, borderColor: colors.icon }]}>
-            <Text style={[styles.storageTitle, { color: colors.text }]}>Storage Usage</Text>
-            <View style={styles.storageInfo}>
-              <View style={styles.storageBar}>
-                <View style={[styles.storageUsed, { backgroundColor: colors.tint, width: '65%' }]} />
+        <View className="mb-6">
+          <View style={{ padding: 20, borderRadius: 12, borderWidth: 1, backgroundColor: colors.background, borderColor: colors.icon }}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginBottom: 15, color: colors.text }}>Storage Usage</Text>
+            <View className="items-center">
+              <View className="w-full h-2 bg-gray-300 rounded mb-2.5">
+                <View style={{ height: '100%', borderRadius: 4, backgroundColor: colors.tint, width: '65%' }} />
               </View>
-              <Text style={[styles.storageText, { color: colors.icon }]}>6.5 GB of 10 GB used</Text>
+              <Text style={{ fontSize: 14, color: colors.icon }}>6.5 GB of 10 GB used</Text>
             </View>
           </View>
         </View>
 
-        <View style={styles.section}>
+        <View className="mb-6">
           <TouchableOpacity
-            style={[styles.resetButton, { backgroundColor: colors.background, borderColor: '#FF5722' }]}
+            style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', padding: 15, borderRadius: 12, borderWidth: 1, backgroundColor: colors.background, borderColor: '#FF5722' }}
             onPress={() => {}}>
             <Ionicons name="refresh" size={20} color="#FF5722" />
-            <Text style={[styles.resetText, { color: '#FF5722' }]}>Reset All Settings</Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold', marginLeft: 8, color: '#FF5722' }}>Reset All Settings</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-    padding: 20,
-  },
-  header: {
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-  },
-  section: {
-    marginBottom: 25,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  sectionCard: {
-    borderRadius: 12,
-    borderWidth: 1,
-    overflow: 'hidden',
-  },
-  settingItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 15,
-  },
-  settingInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  settingText: {
-    fontSize: 16,
-    marginLeft: 12,
-  },
-  infoText: {
-    fontSize: 14,
-  },
-  storageCard: {
-    padding: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  storageTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 15,
-  },
-  storageInfo: {
-    alignItems: 'center',
-  },
-  storageBar: {
-    width: '100%',
-    height: 8,
-    backgroundColor: '#E0E0E0',
-    borderRadius: 4,
-    marginBottom: 10,
-  },
-  storageUsed: {
-    height: '100%',
-    borderRadius: 4,
-  },
-  storageText: {
-    fontSize: 14,
-  },
-  resetButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 15,
-    borderRadius: 12,
-    borderWidth: 1,
-  },
-  resetText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-}); 
+} 

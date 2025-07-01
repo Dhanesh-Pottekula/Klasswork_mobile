@@ -1,13 +1,12 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
+  Alert,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View,
 } from 'react-native';
-import { router } from 'expo-router';
 
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
@@ -24,13 +23,13 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
-      <Text style={styles.subtitle}>Sign in to your account</Text>
-      
-      <View style={styles.form}>
+    <View className="flex-1 justify-center p-5 bg-white">
+      <Text className="text-3xl font-bold text-center mb-2.5 text-gray-800">Welcome Back</Text>
+      <Text className="text-base text-center mb-8 text-gray-600">Sign in to your account</Text>
+  
+      <View className="w-full">
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
@@ -39,71 +38,21 @@ export default function LoginScreen() {
         />
         
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
           secureTextEntry
         />
         
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity className="bg-blue-600 p-4 rounded-lg items-center mb-5" onPress={handleLogin}>
+          <Text className="text-white text-base font-bold">Login</Text>
         </TouchableOpacity>
         
         <TouchableOpacity onPress={() => router.push('auth/register' as any)}>
-          <Text style={styles.linkText}>Don't have an account? Register</Text>
+          <Text className="text-center text-blue-600 text-sm">Don&apos;t have an account? Register</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
-    color: '#333',
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 30,
-    color: '#666',
-  },
-  form: {
-    width: '100%',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#0a7ea4',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  linkText: {
-    textAlign: 'center',
-    color: '#0a7ea4',
-    fontSize: 14,
-  },
-}); 
+} 

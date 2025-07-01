@@ -1,13 +1,12 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
+  Alert,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
+  View,
 } from 'react-native';
-import { router } from 'expo-router';
 
 export default function RegisterScreen() {
   const [name, setName] = useState('');
@@ -32,20 +31,20 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create Account</Text>
-      <Text style={styles.subtitle}>Sign up to get started</Text>
+    <View className="flex-1 justify-center p-5 bg-white">
+      <Text className="text-3xl font-bold text-center mb-2.5 text-gray-800">Create Account</Text>
+      <Text className="text-base text-center mb-8 text-gray-600">Sign up to get started</Text>
       
-      <View style={styles.form}>
+      <View className="w-full">
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Full Name"
           value={name}
           onChangeText={setName}
         />
         
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Email"
           value={email}
           onChangeText={setEmail}
@@ -54,7 +53,7 @@ export default function RegisterScreen() {
         />
         
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
@@ -62,71 +61,21 @@ export default function RegisterScreen() {
         />
         
         <TextInput
-          style={styles.input}
+          className="border border-gray-300 rounded-lg p-4 mb-4 text-base"
           placeholder="Confirm Password"
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           secureTextEntry
         />
         
-        <TouchableOpacity style={styles.button} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
+        <TouchableOpacity className="bg-blue-600 p-4 rounded-lg items-center mb-5" onPress={handleRegister}>
+          <Text className="text-white text-base font-bold">Register</Text>
         </TouchableOpacity>
         
         <TouchableOpacity onPress={() => router.push('auth/login' as any)}>
-          <Text style={styles.linkText}>Already have an account? Login</Text>
+          <Text className="text-center text-blue-600 text-sm">Already have an account? Login</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 10,
-    color: '#333',
-  },
-  subtitle: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 30,
-    color: '#666',
-  },
-  form: {
-    width: '100%',
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 8,
-    padding: 15,
-    marginBottom: 15,
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: '#0a7ea4',
-    padding: 15,
-    borderRadius: 8,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  linkText: {
-    textAlign: 'center',
-    color: '#0a7ea4',
-    fontSize: 14,
-  },
-}); 
+} 

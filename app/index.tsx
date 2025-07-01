@@ -1,42 +1,16 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { router } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
+import "../global.css";
 
 export default function Index() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to Your App</Text>
+    <View className="flex-1 justify-center items-center p-5 bg-white">
+      <Text className="text-2xl font-bold mb-8 text-center">Welcome to Your App</Text>
       <TouchableOpacity 
-        style={styles.button} 
+        className="bg-blue-600 px-8 py-4 rounded-lg" 
         onPress={() => router.push('auth/login' as any)}>
-        <Text style={styles.buttonText}>Get Started</Text>
+        <Text className="text-white text-base font-bold">Get Started</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 30,
-    textAlign: 'center',
-  },
-  button: {
-    backgroundColor: '#0a7ea4',
-    paddingHorizontal: 30,
-    paddingVertical: 15,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
